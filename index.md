@@ -84,8 +84,23 @@ I am forcing the model to take *A cinematic shot of a blue car* as input where a
 
 After that I ran the code normally without any intervention. This gave me the result for the thinking of the model of blue car running normally and the thinking of the patched layer containg blue car input and layer 10 of red car's thinking. I then compared the predictions to give the probabality of the the last token for the first sentence.
 
+## Key Finding
+The final findings from the experiment were how red and blue car probabilities were affected in normal and patched running of the code. This was the final output
+
+Normal red probability: 8.20318603515625
+Patched red probability: 8.228362083435059
+Normal blue probability: 6.83012580871582
+Patched blue probability: 6.63432502746582
+
+*These values are logits and not probabilities*
+
 ## Result
+When the internal representation of the car token from the red-car prompt was injected into the blue-car prompt, the model's output distribution shifted. The logit for 'red' increased while the logit for 'blue' decreased, showing that the patched residual stream contained information related to the visual attribute being tested.
 
 ## Visualization
-## Key Finding
+<img width="389" height="328" alt="image" src="https://github.com/user-attachments/assets/2daf1b81-d522-4c3b-a4d3-0a55ed5d7b61" />
+This attention head helps us to understand the behaviour of the model given an overall prompt however it does seem responsible for connecting the colour with the object 'car'. 
+
 ## Conclusion
+The experiment suggests that visual attributes such as color are not stored as a single explicit feature in the model. Instead, they are represented within distributed patterns in the residual stream. By modifying the internal representation of the object token, we were able to partially transfer the color concept from the red-car prompt into the blue-car prompt.
+The model internally knew something about red vs blue, and changing the hidden representation of "car" was enough to slightly push the model toward the red concept.
