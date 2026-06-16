@@ -8,10 +8,7 @@ We have often used text to image generator where we have already seen how prompt
 Therefore we are already aware of how our words and description are affecting the generated image. Nevertheless these are still treated like black boxes where the logic and explanation behind it remains hidden, ignored and even forgotten. With the task given to me I have tried to explore and understand the text to image generator with the means of transformer lens.
 
 The goal of this task was to find out the role of image to text generator and why is there even a need to look behind the hood.
-I have tried to understand how the GPT_2 backbone inside the prompt generator represents and processes visual modifiers suc as colours, objects and styles.
-
-## Background
-
+I have tried to understand how the GPT_2 backbone inside the prompt generator represents and processes visual modifiers such as colours, objects and styles.
 
 ## Experiment Setup
 I started with importing transformer-lens, torch and matplotlib. Also I imported HookedTransformer. this is essential so that we may be able to attach Hooks. they are the points which help to inspect and look into the internal computation which further contributes in unravelling the black box.
@@ -41,6 +38,8 @@ The model activations were collected using `logits, cache = model.run_with_cache
 
 
 ## Methodolody
+Following the the link to access my code
+Google Colab(https://colab.research.google.com/drive/1-kCG48jPTvL7qGC4DPtzYZv6xqvLldSz#scrollTo=eCqf3gWEvCCo)
 I created two almost idential promts with the change made only in the colour of the car. The prompts were  `A cinematic shot of a red car`  and  `A cinematic shot of a *blue* car`. I only changed the colour and kept everything else the same so that I compare and then infer that if the change occurs it is due to the token of colour. Since the computer cannot read text so use use `tokens_red = model.to_tokens(prompt_red)` to convert it to tokens.Thus the experiment was conducted to see the difference between the prompt of red car vs blue car. Then I applied activation caching this allowed me get the prediction of the next token along with all the internal activations. In simpler terms it showed the model's memory while thinking. I then moved on to inspect the attention.
 ```python
 layer = 10
@@ -99,6 +98,7 @@ When the internal representation of the car token from the red-car prompt was in
 
 ## Visualization
 <img width="389" height="328" alt="image" src="https://github.com/user-attachments/assets/2daf1b81-d522-4c3b-a4d3-0a55ed5d7b61" />
+
 This attention head helps us to understand the behaviour of the model given an overall prompt however it does seem responsible for connecting the colour with the object 'car'. 
 
 ## Conclusion
