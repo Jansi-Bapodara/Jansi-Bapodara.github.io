@@ -39,7 +39,7 @@ The model activations were collected using `logits, cache = model.run_with_cache
 
 ## Methodolody
 Following the the link to access my code
-Google Colab(https://colab.research.google.com/drive/1-kCG48jPTvL7qGC4DPtzYZv6xqvLldSz#scrollTo=eCqf3gWEvCCo)
+[Mechinterp - text to image generator](https://colab.research.google.com/drive/1-kCG48jPTvL7qGC4DPtzYZv6xqvLldSz#scrollTo=eCqf3gWEvCCo)
 I created two almost idential promts with the change made only in the colour of the car. The prompts were  `A cinematic shot of a red car`  and  `A cinematic shot of a *blue* car`. I only changed the colour and kept everything else the same so that I compare and then infer that if the change occurs it is due to the token of colour. Since the computer cannot read text so use use `tokens_red = model.to_tokens(prompt_red)` to convert it to tokens.Thus the experiment was conducted to see the difference between the prompt of red car vs blue car. Then I applied activation caching this allowed me get the prediction of the next token along with all the internal activations. In simpler terms it showed the model's memory while thinking. I then moved on to inspect the attention.
 ```python
 layer = 10
